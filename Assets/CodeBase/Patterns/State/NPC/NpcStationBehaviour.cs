@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using InfimaGames.LowPolyShooterPack;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,7 +9,7 @@ namespace CodeBase.Patterns.State.NPC
 {
     public class NpcStationBehaviour : MonoBehaviour,IStateSwitcher
     {
-        public FirstPersonController _player;
+        public Movement _player;
 
         public BaseNpcState _currentState;
         private List<BaseNpcState> _states;
@@ -22,7 +23,7 @@ namespace CodeBase.Patterns.State.NPC
         private void InitializeStates()
         {
             
-            _player = FindObjectOfType<FirstPersonController>();
+            _player = FindObjectOfType<Movement>();
             _states = new List<BaseNpcState>()
             {
                 new FriendlyState(_player,this,_animator,_stateImage),

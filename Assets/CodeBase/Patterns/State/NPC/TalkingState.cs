@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using CodeBase.Patterns.State.NPC;
 using CodeBase.Patterns.State.PlayerState;
+using InfimaGames.LowPolyShooterPack;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,7 +20,7 @@ public class TalkingState : BaseNpcState
     };
 
     private PlayerInteracter _playerInteracter;
-    public TalkingState(FirstPersonController player,IStateSwitcher stateSwitcher,Animator animator,Image image) : base(player,stateSwitcher,animator,image)
+    public TalkingState(Movement player,IStateSwitcher stateSwitcher,Animator animator,Image image) : base(player,stateSwitcher,animator,image)
     {
         _playerInteracter = player.GetComponent<PlayerInteracter>();
     }

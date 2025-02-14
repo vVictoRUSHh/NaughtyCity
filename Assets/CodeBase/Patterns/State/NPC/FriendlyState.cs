@@ -1,11 +1,12 @@
 ﻿using CodeBase.Patterns.State.NPC;
 using CodeBase.Patterns.State.PlayerState;
+using InfimaGames.LowPolyShooterPack;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class FriendlyState : BaseNpcState
 {
-    public FriendlyState(FirstPersonController player,IStateSwitcher stateSwitcher,Animator animator,Image image) : base(player,stateSwitcher,animator,image)
+    public FriendlyState(Movement player,IStateSwitcher stateSwitcher,Animator animator,Image image) : base(player,stateSwitcher,animator,image)
     {
         
     }

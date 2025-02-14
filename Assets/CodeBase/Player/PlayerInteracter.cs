@@ -1,5 +1,6 @@
 using System;
 using CodeBase.Patterns.State.NPC;
+using InfimaGames.LowPolyShooterPack;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -11,17 +12,17 @@ public class PlayerInteracter : MonoBehaviour
     public LayerMask layerMask;
     public TMP_Text _text;
     private NpcStationBehaviour _npcStationBehaviour;
-    private FirstPersonController _firstPersonController;
+    private Movement _playerMovement;
     public int _dialogRepliceCount;
     private void Start()
     {
         _camera = Camera.main;
-        _firstPersonController = GetComponent<FirstPersonController>();
+        _playerMovement = GetComponent<Movement>();
     }
 
     private void Update()
     {
-        if(!_firstPersonController._inputService._isMovementLocked)CanPlayerInteract();
+        if(!_playerMovement._inputService._isMovementLocked)CanPlayerInteract();
         if (Input.GetKeyDown(KeyCode.E)) Interact();
     }
     private void Interact()

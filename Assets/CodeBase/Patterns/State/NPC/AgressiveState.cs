@@ -1,11 +1,12 @@
 ﻿using CodeBase.Patterns.State.NPC;
 using CodeBase.Patterns.State.PlayerState;
+using InfimaGames.LowPolyShooterPack;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class AgressiveState : BaseNpcState
 {
-    public AgressiveState(FirstPersonController player,IStateSwitcher stateSwitcher,Animator animator,Image image) : base(player,stateSwitcher,animator,image)
+    public AgressiveState(Movement player,IStateSwitcher stateSwitcher,Animator animator,Image image) : base(player,stateSwitcher,animator,image)
     {
         
     }

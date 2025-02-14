@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using InfimaGames.LowPolyShooterPack;
+using UnityEngine;
 
 public class PlayerFactory
 {
@@ -6,9 +7,9 @@ public class PlayerFactory
     {
        GameObject _prefab = Resources.Load<GameObject>(gameobjectPath);
        GameObject _playerObj = Object.Instantiate(_prefab);
-       if (_playerObj.TryGetComponent(out FirstPersonController firstPersonController))
+       if (_playerObj.TryGetComponent(out Movement playerComponent))
        {
-           firstPersonController._inputService = inputService;
+           playerComponent._inputService = inputService;
        }
        else
        {

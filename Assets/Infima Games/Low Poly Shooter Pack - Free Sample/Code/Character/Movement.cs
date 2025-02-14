@@ -8,6 +8,7 @@ namespace InfimaGames.LowPolyShooterPack
     [RequireComponent(typeof(Rigidbody), typeof(CapsuleCollider))]
     public class Movement : MovementBehaviour
     {
+        public IInputService _inputService;
         #region FIELDS SERIALIZED
 
         [Header("Audio Clips")]
@@ -159,7 +160,9 @@ namespace InfimaGames.LowPolyShooterPack
             #region Calculate Movement Velocity
 
             //Get Movement Input!
-            Vector2 frameInput = playerCharacter.GetInputMovement();
+            //Vector2 frameInput = playerCharacter.GetInputMovement();
+            Vector2 frameInput = _inputService._playerInput;
+            
             //Calculate local-space direction by using the player's input.
             var movement = new Vector3(frameInput.x, 0.0f, frameInput.y);
             
@@ -178,7 +181,8 @@ namespace InfimaGames.LowPolyShooterPack
             #endregion
             
             //Update Velocity.
-            Velocity = new Vector3(movement.x, 0.0f, movement.z);
+            if (!_inputService._isMovementLocked) Velocity = new Vector3(movement.x, 0.0f, movement.z);
+            else  Velocity = Vector3.zero;
         }
 
         /// <summary>

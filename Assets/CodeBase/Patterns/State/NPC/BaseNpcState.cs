@@ -1,16 +1,17 @@
 using CodeBase.Patterns.State.PlayerState;
+using InfimaGames.LowPolyShooterPack;
 using UnityEngine;
 using UnityEngine.UI;
 namespace CodeBase.Patterns.State.NPC
 {
     public abstract class BaseNpcState
     {
-        public FirstPersonController _player;
+        public Movement _player;
         public IStateSwitcher _stateSwitcher;
         public PlayerBehaviour _playerBehaviour;
         public Animator _npcAnimator;
         public Image _image;
-        public BaseNpcState(FirstPersonController player, IStateSwitcher stateSwitcher, Animator animator,Image image)
+        public BaseNpcState(Movement player, IStateSwitcher stateSwitcher, Animator animator,Image image)
         {
             _player = player;
             _stateSwitcher = stateSwitcher;
