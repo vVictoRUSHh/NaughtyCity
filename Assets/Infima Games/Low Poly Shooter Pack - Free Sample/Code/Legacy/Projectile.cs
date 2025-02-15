@@ -1,11 +1,13 @@
 ﻿using System;
 using UnityEngine;
 using System.Collections;
+using CodeBase.NPC;
 using InfimaGames.LowPolyShooterPack;
 using Random = UnityEngine.Random;
 
 public class Projectile : MonoBehaviour {
 
+	[SerializeField] private int _projectileDamage;
 	[Range(5, 100)]
 	[Tooltip("After how long time should the bullet prefab be destroyed?")]
 	public float destroyAfter;
@@ -66,6 +68,10 @@ public class Projectile : MonoBehaviour {
 			Destroy (gameObject);
 		}
 
+		if (collision.transform.tag == "Enemy" )
+		{
+			collision.transform.gameObject.GetComponent<EnemyHealth>().TakeDamage(_projectileDamage);
+		}
 		//If bullet collides with "Blood" tag
 		if (collision.transform.tag == "Blood") 
 		{

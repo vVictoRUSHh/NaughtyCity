@@ -677,7 +677,7 @@ MonoBehaviour:
   rayDistance: 3
   layerMask:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 0
   _text: {fileID: 0}
   _dialogRepliceCount: 0
 --- !u!114 &901990026275994623
