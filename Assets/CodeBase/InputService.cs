@@ -6,6 +6,5 @@ public class InputService : IInputService
     {
         get { return new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));}
     }
-
     public bool _isMovementLocked { get; set; }
 }

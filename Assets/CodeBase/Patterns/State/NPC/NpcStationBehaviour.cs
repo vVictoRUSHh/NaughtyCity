@@ -1,28 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using InfimaGames.LowPolyShooterPack;
 using UnityEngine;
 using UnityEngine.UI;
-
 namespace CodeBase.Patterns.State.NPC
 {
-    public class NpcStationBehaviour : MonoBehaviour,IStateSwitcher
+    public class NpcStationBehaviour : MonoBehaviour,IStateSwitcher,IInteractable
     {
         public Movement _player;
-
         public BaseNpcState _currentState;
-        private List<BaseNpcState> _states;
         public Animator _animator;
         public Image _stateImage;
-        private void Start()
-        {
-            Invoke("InitializeStates",2f);
-        }
+        private List<BaseNpcState> _states;
 
+        private void OnEnable()
+        {
+            SceneLoadService._onSceneLoaded += InitializeStates;
+        }
+        private void OnDisable()
+        {
+            SceneLoadService._onSceneLoaded -= InitializeStates;
+        }
         private void InitializeStates()
         {
-            
             _player = FindObjectOfType<Movement>();
             _states = new List<BaseNpcState>()
             {
@@ -40,6 +40,11 @@ namespace CodeBase.Patterns.State.NPC
             _currentState.ExitState();
             state.StartState();
             _currentState = state;
+        }
+
+        public void Interact()
+        {
+            _currentState.StartState();
         }
     }
 }

@@ -1,7 +1,4 @@
-﻿using System;
-using UnityEngine;
-using UnityEngine.Serialization;
-
+﻿using UnityEngine;
 namespace CodeBase.Patterns.State.PlayerState
 {
     public class PlayerBehaviour : MonoBehaviour

@@ -5,27 +5,12 @@ namespace CodeBase.NPC
     {
         [SerializeField] private int _health;
         
-        public int Health
-        {
-            get
-            {
-                return _health;
-            }
-
-            set
-            {
-                if (_health > 0) _health = value;
-                else
-                {
-                    Die();
-                    _health = 0;
-                }
-            }
-        }
-
+        public int GetHealth() => _health;
+        
         public void TakeDamage(int damage)
         {
-            Health -= damage;
+            if(_health > 0)_health -= damage;
+            else Die();
         }
 
         public void Die()

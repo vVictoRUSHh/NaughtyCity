@@ -65,6 +65,6 @@ public class MissionWaypoint : MonoBehaviour
 
     private void Start()
     {
-        _target = GameObject.FindGameObjectWithTag("NpcMission").transform;
+        _target = GameObject.FindGameObjectWithTag("Enemy").transform;
     }
 }

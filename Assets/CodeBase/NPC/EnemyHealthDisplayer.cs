@@ -9,15 +9,14 @@ public class EnemyHealthDisplayer : MonoBehaviour
     [SerializeField] private EnemyHealth _enemyHealth;
     private Camera _camera;
 
-    private void DisplayHealth()
+    private void OnEnable()
     {
-        _hpSlider.value = (float)_enemyHealth.Health / 100;
-        print($"hp in slider {_enemyHealth.Health / 100}");
+        SceneLoadService._onSceneLoaded += Init;
     }
 
-    private void Start()
+    private void OnDisable()
     {
-        Invoke("InitializationOfCamera",2f);
+        SceneLoadService._onSceneLoaded -= Init;
     }
 
     private void Update()
@@ -26,11 +25,16 @@ public class EnemyHealthDisplayer : MonoBehaviour
         DisplayHealth();
     }
 
+    private void DisplayHealth()
+    {
+        _hpSlider.value = (float)_enemyHealth.GetHealth() / 100;
+    }
+
     private void LookAtPlayer()
     {
         if(_camera!=null)_hpSlider.transform.LookAt(_camera.transform);
     }
-    private void InitializationOfCamera()
+    private void Init()
     {
         _camera = Camera.main;
     }

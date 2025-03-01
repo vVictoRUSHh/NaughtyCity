@@ -1,66 +1,66 @@
-using System;
+using CodeBase;
 using CodeBase.Patterns.State.NPC;
 using InfimaGames.LowPolyShooterPack;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
-
 public class PlayerInteracter : MonoBehaviour
 {
-    public Camera _camera;
-    public float rayDistance = 100f;
-    public LayerMask layerMask;
+    
+    [SerializeField] private LayerMask _interactableLayerMask;
+    [SerializeField] private Camera _camera;
+    [Range(0, 100f)] [SerializeField] private float _rayDistance;
     public TMP_Text _text;
-    private NpcStationBehaviour _npcStationBehaviour;
     private Movement _playerMovement;
+    private bool _canInteract;
     public int _dialogRepliceCount;
+    
     private void Start()
+    {
+        Init();
+    }
+    private void Update()
+    {
+        CheckingForInteraction();
+    }
+
+    private void CheckingForInteraction()
+    {
+        if(!_playerMovement._inputService._isMovementLocked)GetRayHit();
+        TryToInteract(_canInteract,Input.GetKeyDown(KeyCode.E));
+    }
+    private void Init()
     {
         _camera = Camera.main;
         _playerMovement = GetComponent<Movement>();
     }
 
-    private void Update()
+    private void TryToInteract(bool canInteract,bool interactButton)
     {
-        if(!_playerMovement._inputService._isMovementLocked)CanPlayerInteract();
-        if (Input.GetKeyDown(KeyCode.E)) Interact();
-    }
-    private void Interact()
-    {
-
-        if (CanPlayerInteract())
+        if (canInteract && interactButton)
         {
-            _npcStationBehaviour._currentState.StartState();
-            Debug.LogError("Я тут притаился!");
+            CallingInteractMethod(GetRayHit());
         }
     }
 
-    private bool CanPlayerInteract()
+    private RaycastHit GetRayHit()
     {
         Vector3 screenCenter = new Vector3(Screen.width / 2, Screen.height / 2, 0);
         Ray ray = _camera.ScreenPointToRay(screenCenter);
-
-        if (Physics.Raycast(ray, out RaycastHit hit, rayDistance, layerMask))
+        if (Physics.Raycast(ray, out RaycastHit hit, _rayDistance, _interactableLayerMask))
         {
-            if (hit.transform.gameObject.TryGetComponent(out NpcStationBehaviour npcStationBehaviour))
-            {
-                _npcStationBehaviour = npcStationBehaviour;
-                _text.text = "Press \"E\" to interactr";
-                return true;
-            }
+            _canInteract = true;
+            _text.text = "Press \"E\" to interact";
+                return hit;
         }
         _text.text = "";
-            return false;
+            _canInteract = false;
+        return new RaycastHit();
     }
 
-    private void OnDrawGizmos()
+    private void  CallingInteractMethod(RaycastHit hit)
     {
-        if (_camera == null) return;
-
-        Vector3 screenCenter = new Vector3(Screen.width / 2, Screen.height / 2, 0);
-        Ray ray = _camera.ScreenPointToRay(screenCenter);
-
-        Gizmos.color = Color.red;
-        Gizmos.DrawRay(ray.origin, ray.direction * rayDistance);
+        if (hit.transform.gameObject.TryGetComponent(out IInteractable interactable))
+            interactable.Interact();
     }
+    
 }
