@@ -3,6 +3,7 @@
 using System;
 using UnityEngine;
 using System.Collections;
+using InfimaGames.LowPolyShooterPack.Interface;
 using UnityEngine.InputSystem;
 
 namespace InfimaGames.LowPolyShooterPack
@@ -78,6 +79,9 @@ namespace InfimaGames.LowPolyShooterPack
 		/// Actions Layer Index. Used to play actions like reloading.
 		/// </summary>
 		private int layerActions;
+
+		public GameObject _canvas;
+		private bool isActive;
 
 		/// <summary>
 		/// Character Kinematics. Handles all the IK stuff.
@@ -195,6 +199,30 @@ namespace InfimaGames.LowPolyShooterPack
 			layerActions = characterAnimator.GetLayerIndex("Layer Actions");
 			//Cache a reference to the overlay layer's index.
 			layerOverlay = characterAnimator.GetLayerIndex("Layer Overlay");
+			_canvas.gameObject.SetActive(false);
+		}
+
+		private void CanvasControll()
+		{
+			
+			if (Input.GetKeyDown(KeyCode.G) && _canvas != null)
+			{
+				CheckCanvasState();
+			}
+		}
+
+		private void CheckCanvasState()
+		{
+			if (!isActive)
+			{
+				_canvas.SetActive(true);
+				isActive = true;
+			}
+			else 
+			{
+				_canvas.SetActive(false);
+				isActive = false;
+			}
 		}
 
 		protected override void Update()
@@ -203,7 +231,8 @@ namespace InfimaGames.LowPolyShooterPack
 			aiming = holdingButtonAim && CanAim();
 			//Match Run.
 			running = holdingButtonRun && CanRun();
-
+			CanvasControll();
+			
 			//Holding the firing button.
 			if (holdingButtonFire)
 			{

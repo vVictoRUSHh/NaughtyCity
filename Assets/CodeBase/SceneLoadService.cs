@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections;
+using CodeBase.Patterns.EventBus;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public class SceneLoadService : MonoBehaviour
 {
     [SerializeField] private Slider progressBar;
-    public static Action _onSceneLoaded;
     private void Awake()
     {
         DontDestroyOnLoad(this);
@@ -29,7 +29,7 @@ public class SceneLoadService : MonoBehaviour
     private void EndingSceneLoading(Action callback)
     {
         callback?.Invoke();
-        _onSceneLoaded?.Invoke();
+        EventBus.Instance.onSceneLoaded?.Invoke();
         this.gameObject.SetActive(false);
     }
 }

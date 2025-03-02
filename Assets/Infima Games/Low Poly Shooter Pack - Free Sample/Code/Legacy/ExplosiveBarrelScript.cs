@@ -43,7 +43,12 @@ public class ExplosiveBarrelScript : MonoBehaviour {
 			} 
 		}
 	}
-	
+
+	public void Exploding()
+	{
+		StartCoroutine(Explode());
+	}
+
 	private IEnumerator Explode () {
 		//Wait for set amount of time
 		yield return new WaitForSeconds(randomTime);

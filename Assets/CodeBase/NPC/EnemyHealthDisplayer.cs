@@ -1,5 +1,6 @@
 using System;
 using CodeBase.NPC;
+using CodeBase.Patterns.EventBus;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,12 +12,12 @@ public class EnemyHealthDisplayer : MonoBehaviour
 
     private void OnEnable()
     {
-        SceneLoadService._onSceneLoaded += Init;
+       EventBus.Instance.onSceneLoaded += Init;
     }
 
     private void OnDisable()
     {
-        SceneLoadService._onSceneLoaded -= Init;
+        EventBus.Instance.onSceneLoaded -= Init;
     }
 
     private void Update()

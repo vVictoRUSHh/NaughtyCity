@@ -17,6 +17,8 @@ namespace InfimaGames.LowPolyShooterPack.Interface
         [SerializeField]
         private GameObject canvasPrefab;
 
+        private Character _character;
+
         #endregion
 
         #region UNITY FUNCTIONS
@@ -27,9 +29,11 @@ namespace InfimaGames.LowPolyShooterPack.Interface
         private void Awake()
         {
             //Spawn Interface.
-            Instantiate(canvasPrefab);
-        }
+            _character = FindObjectOfType<Character>();
+            GameObject canvas =  Instantiate(canvasPrefab);
+            _character._canvas = canvas;
 
+        }
         #endregion
     }
 }

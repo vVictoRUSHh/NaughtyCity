@@ -15,11 +15,12 @@ namespace CodeBase.Patterns.State.NPC
 
         private void OnEnable()
         {
-            SceneLoadService._onSceneLoaded += InitializeStates;
+            
+           EventBus.EventBus.Instance.onSceneLoaded += InitializeStates;
         }
         private void OnDisable()
         {
-            SceneLoadService._onSceneLoaded -= InitializeStates;
+            EventBus.EventBus.Instance.onSceneLoaded -= InitializeStates;
         }
         private void InitializeStates()
         {
