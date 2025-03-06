@@ -1,7 +1,8 @@
 using CodeBase.Patterns.EventBus;
+using InfimaGames.LowPolyShooterPack;
 using UnityEngine;
 using UnityEngine.UI;
-public class NpcMarker : MonoBehaviour
+public class NpcMarker : MonoBehaviour,IGameService
 {
     public Image _marker;
     [SerializeField] private Camera _camera;

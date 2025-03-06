@@ -1215,7 +1215,7 @@ Canvas:
   m_GameObject: {fileID: 2242612380869599672}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_Camera: {fileID: 2184556992040020609}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -1658,7 +1658,7 @@ Canvas:
   m_GameObject: {fileID: 2983641277062461058}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_Camera: {fileID: 2184556992040020609}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -3081,6 +3081,7 @@ GameObject:
   - component: {fileID: 3933835503517775150}
   - component: {fileID: 2127962625609531214}
   - component: {fileID: 4794098506269201418}
+  - component: {fileID: 5652018036908462856}
   m_Layer: 10
   m_Name: FPS_PLAYER
   m_TagString: Player
@@ -3677,6 +3678,19 @@ MonoBehaviour:
   _target: {fileID: 0}
   _distanationInMeters: {fileID: 4742069043055740360}
   offset: {x: 0, y: 4, z: 0}
+--- !u!114 &5652018036908462856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5016184172151832103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6d205c145c048158ade79ff8d2b4ceb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _tmpText: {fileID: 1729742467542518176}
 --- !u!1 &5052578866049153463
 GameObject:
   m_ObjectHideFlags: 0

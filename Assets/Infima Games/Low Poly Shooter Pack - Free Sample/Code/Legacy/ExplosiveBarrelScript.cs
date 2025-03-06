@@ -1,11 +1,15 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
+using InfimaGames.LowPolyShooterPack;
+using Random = UnityEngine.Random;
 
 public class ExplosiveBarrelScript : MonoBehaviour {
 
 	float randomTime;
 	bool routineStarted = false;
 
+	private SecondMission _secondMission;
 	//Used to check if the barrel 
 	//has been hit and should explode 
 	public bool explode = false;
@@ -27,6 +31,8 @@ public class ExplosiveBarrelScript : MonoBehaviour {
 	public float explosionRadius = 12.5f;
 	//How powerful the explosion is
 	public float explosionForce = 4000.0f;
+
+	public Action onBarralExploded;
 	
 	private void Update () {
 		//Generate random time based on min and max time values
@@ -42,6 +48,11 @@ public class ExplosiveBarrelScript : MonoBehaviour {
 				routineStarted = true;
 			} 
 		}
+	}
+
+	private void Start()
+	{
+		ServiceLocator.Current.Register(_secondMission);
 	}
 
 	public void Exploding()
@@ -98,8 +109,7 @@ public class ExplosiveBarrelScript : MonoBehaviour {
 			Instantiate (explosionPrefab, checkGround.point, 
 				Quaternion.FromToRotation (Vector3.forward, checkGround.normal)); 
 		}
-
-		//Destroy the current barrel object
 		Destroy (gameObject);
+		onBarralExploded?.Invoke();
 	}
 }

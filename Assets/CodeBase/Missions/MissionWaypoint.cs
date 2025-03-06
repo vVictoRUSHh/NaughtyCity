@@ -1,25 +1,31 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+using InfimaGames.LowPolyShooterPack;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
-
-public class MissionWaypoint : MonoBehaviour
+public class MissionWaypoint : MonoBehaviour,IGameService
 {
-   // Indicator icon
     public Image _markerImage;
-    // The target (location, enemy, etc..)
     public Transform _target;
-    // UI Text to display the distance
     public TMP_Text _distanationInMeters;
-    // To adjust the position of the icon
     public Vector3 offset;
     private float distanation;
 
     private void Update()
     {
+        if(_target!= null)ShowMarker();
+        else
+            HideMarkerFromPlayer();
+    }
+
+    private void HideMarkerFromPlayer()
+    {
+        _markerImage.gameObject.SetActive(false);
+        _distanationInMeters.gameObject.SetActive(false);
+    }
+
+    private void ShowMarker()
+    {
+        _distanationInMeters.gameObject.SetActive(true);
         
         float minX = _markerImage.GetPixelAdjustedRect().width / 2;
         float maxX = Screen.width - minX;
@@ -27,6 +33,7 @@ public class MissionWaypoint : MonoBehaviour
         float minY = _markerImage.GetPixelAdjustedRect().height / 2;
         float maxY = Screen.height - minY;
 
+        
         Vector2 pos = Camera.main.WorldToScreenPoint(_target.position + offset);
 
         if(Vector3.Dot((_target.position - transform.position), transform.forward) < 0)
@@ -61,10 +68,5 @@ public class MissionWaypoint : MonoBehaviour
     {
         if(distanation > 3) _markerImage.gameObject.SetActive(true);
         else _markerImage.gameObject.SetActive(false);
-    }
-
-    private void Start()
-    {
-        _target = GameObject.FindGameObjectWithTag("Enemy").transform;
     }
 }
